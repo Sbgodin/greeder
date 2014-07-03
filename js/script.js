@@ -43,6 +43,7 @@ if($('#backtop').length) {
 $(document).ready(function() {
 	// Back to top button handling
 	toggleBacktop();
+	$('#pagination').remove();
 
 	// Initialize ajaxready at first function load
 	if($('#main').length) {
@@ -545,11 +546,6 @@ function synchronize(code, callback) {
 // =======================
 // Settings page functions
 // =======================
-function toggleArticleView(){
-	var element = $("input[name=articleView]");
-	element.prop("disabled",!element.prop("disabled"));
-}
-
 function toggleBlocks(target) {
 	if($(target).length) {
 		$('main section').hide();

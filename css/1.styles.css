@@ -191,6 +191,9 @@
 		.fade {
 			color:#6A6A6A;
 		}
+        .lecture-anonyme {
+            display: none !important;
+        }
 	/*Backtop*/
 		#backtop {
 			position:fixed;
@@ -297,7 +300,7 @@
 		}
 		ul .fade {
 			float:right;
-			
+
 		}
 		#feedList  > li > .fade {
 			padding: 3px 3px 0 0;
@@ -544,7 +547,7 @@
 			main td > * {
 				margin:.5rem;
 			}
-			
+
 			#loopFoldersSettings tr{
 				margin-top: 1rem
 			}

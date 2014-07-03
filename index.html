@@ -4,9 +4,9 @@
 {function="Plugin::callHook("menu_pre_folder_menu", array(&$myUser))"}
 <div id="flex">
 	<aside>
-	
+
 		{include="navigation"}
-		
+
 		<div id="breadcrumb" class="fade">
 		<!-- display one feed -->
 			{if="$action=='selectedFeed'"}
@@ -16,21 +16,20 @@
 				<a href="index.php?action=selectedFeed&amp;feed={$_['feed']}&amp;page={$page}&amp;order=unread">{function="ucfirst(_t('UNREAD'))"}</a> /
 				<a href="index.php?action=selectedFeed&amp;feed={$_['feed']}&amp;page={$page}&amp;order=older">{function="_t('OLDER')"}</a> {function="_t('IN_FIRST')"}
 			{/if}
-			<!-- display one folder -->                
+			<!-- display one folder -->
 			{if="$action=='selectedFolder'"}
 				{$currentFolder->getName()}
 			{/if}
-			<!-- display favorites -->                
+			<!-- display favorites -->
 			{if="$action=='favorites'"}
 				{function="_t('FAVORITES_EVENTS',array($numberOfItem))"}
 			{/if}
-			<!-- display unread elements (default) -->                                                
+			<!-- display unread elements (default) -->
 			{if="($action=='unreadEvents') || ($action=='')"}
 				{function="_t('UNREAD')"} ({$numberOfItem})
 			{/if}
 		</div>
-
-		<button class="btn red" onclick="if(confirm('{function="_t('CONFIRM_MARK_ALL_AS_READ')"}'))window.location='action.php?action=readAll'">{function="_t('MARK_ALL_AS_READ')"}</button>
+		<button class="btn red {if="$myUser==false"}lecture-anonyme{/if}" onclick="if(confirm('{function="_t('CONFIRM_MARK_ALL_AS_READ')"}'))window.location='action.php?action=readAll'">{function="_t('MARK_ALL_AS_READ')"}</button>
 					{function="Plugin::callHook("menu_post_header_options", array(&$myUser))"}
 					<ul id="feedList">
 						<!--parse feeds for each folder-->
@@ -48,18 +47,18 @@
 											►
 										</a>
 										{function="Plugin::callHook("menu_pre_folder_link", array(&$value))"}
-			
+
 										<a title="{function="_t('READ_FOLDER_ITEMS')"}" href="index.php?action=selectedFolder&amp;folder={$value->getId()}">
 											{$value->getName()}
 										</a>
-			
+
 										{function="Plugin::callHook("menu_post_folder_link", array(&$value))"}
 										{if="$unreadEventsForFolder!=0"}
 										<a class="fade" title="{function="_t('MARK_AS_READ_FOLDER_ITEMS',array($unreadEventsForFolder))"}" onclick="if(confirm('{function="_t('READ_ALL_FOLDER_CONFIRM')"}'))window.location='action.php?action=readFolder&amp;folder={$value->getId()}';">
 											({$unreadEventsForFolder})
 										</a>
 										{/if}
-			
+
 										<!-- folder's feeds -->
 										<ul>
 											{if="count($feeds)!=0"}
@@ -85,11 +84,11 @@
 						</ul>
 
 			{function="Plugin::callHook("menu_post_folder_menu", array(&$myUser))"}
-	</aside> 
+	</aside>
 
 	<main id="main">
 		{include="article"}
-		
+
 		{if="$pages!=0"}
 		<p id="pagination">
 			<a class="grey-h page">Page {$page}/{$pages} : </a>
@@ -101,7 +100,7 @@
 			{loop="pagesArray"}
 
 			{if="$page!=$value"}
-				<a class="grey page" href="index.php?action={$action}{if="$action=='selectedFeed'"}&amp;feed={$currentFeed->getId()}{/if}{if="$action=='selectedFolder'"}&amp;folder={$currentFolder->getId()}{/if}&amp;page={$value}">{$value}</a> 
+				<a class="grey page" href="index.php?action={$action}{if="$action=='selectedFeed'"}&amp;feed={$currentFeed->getId()}{/if}{if="$action=='selectedFolder'"}&amp;folder={$currentFolder->getId()}{/if}&amp;page={$value}">{$value}</a>
 			{else}
 				<a class="grey-h page">{$value}</a>
 			{/if}
@@ -111,7 +110,7 @@
 			{if="$nextPages>0"}
 				<a class="grey page" href="index.php?action={$action}{if="$action=='selectedFeed'"}&amp;feed={$currentFeed->getId()}{/if}{if="$action=='selectedFolder'"}&amp;folder={$currentFolder->getId()}{/if}&amp;page={$nextPages}">&gt;&gt;</a>
 			{/if}
-		</p> 
+		</p>
 		{/if}
 	</main>
 

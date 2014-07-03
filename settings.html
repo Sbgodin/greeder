@@ -289,21 +289,6 @@
 				<p>{function="_t('CAN_DOWNLOAD_PLUGINS')"} : <a href="https://github.com/ldleman/Leed-market/"> Leed Market</a>.</p>
 
 				{if="$myUser!=false"}
-				<ul class="pluginMenu">
-					<li class="selected" onclick="togglePluginMenu(this,'installed');">Plugins installés</li>
-					<li  onclick="togglePluginMenu(this,'market');">Market</li>
-					<div class="clear"></div>
-				</ul>
-
-				<div class="marketZone">
-					<p>Recherchez et ajoutez les plugins proposés par la communauté en utilisant le formulaire ci dessous ! (<a href="http://market.idleman.fr/index.php?software=leed&amp;page=submit">Proposer un nouveau plugin</a>)</p>
-					<form class="form-inline">
-					<input type="text" id="keywordPlugin"> <button class="red" class="btn" id="btnSearchPlugin" onclick="searchPlugin($('#keywordPlugin').val());return false;">Rechercher</button>
-					</form>
-					<ul id="resultsPlugin"></ul>
-					<br/><br/>
-				</div>
-
 				<div class="installedZone">
 					<h3>{function="_t('AVAILABLE_PLUGIN_LIST')"} :</h3>
 					<ul class="pluginList">

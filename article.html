@@ -1,5 +1,5 @@
 {loop="$events"}
-	{$plainDescription=strip_tags($value->getDescription())}	
+	{$plainDescription=strip_tags($value->getDescription())}
 
     {function="Plugin::callHook("event_pre_section", array(&$value))"}
     <article class="feedArticle
@@ -11,7 +11,7 @@
 		<a class="anchor" id="{$value->getId()}"></a>
 
 		<!-- Buttons -->
-		<nav class="articles-button-bar">
+		<nav class="articles-button-bar {if="$myUser==false"}lecture-anonyme{/if}">
 			{function="Plugin::callHook("event_pre_title", array(&$value))"}
 			{if="$value->getFavorite()!=1"}
 				<button class="btn square favs" onclick="addFavorite(this,{$value->getId()});" >★</button>
@@ -22,10 +22,10 @@
 		</nav>
 		<h1>
 			<span class="star" >★</span>
-			<a onclick="readThis(this,{$value->getId()},'title');" target="_blank" href="{$value->getLink()}" title="{$plainDescription}">{$value->getTitle()}</a> 
+			<a onclick="readThis(this,{$value->getId()},'title');" target="_blank" href="{$value->getLink()}" title="{$plainDescription}">{$value->getTitle()}</a>
 			{function="Plugin::callHook("event_post_title", array(&$value))"}
 		</h1>
-		
+
 		<h2>
 			{function="Plugin::callHook("event_pre_top_options", array(&$value))"}
 			{if="$articleDisplayLink"}
@@ -35,8 +35,8 @@
 				par {$value->getCreator()}
 			{/if}
 
-			{if="$articleDisplayDate"} 
-				{$value->getPubdateWithInstant($time)} 
+			{if="$articleDisplayDate"}
+				{$value->getPubdateWithInstant($time)}
 			{/if}
 
 			{function="Plugin::callHook("event_post_top_options", array(&$value))"}
@@ -79,7 +79,7 @@
 
 		<!-- Complete view : repeat buttons -->
 		{if="$articleDisplayMode=='content'"}
-			<nav class="articles-button-bar articles-button-bar-repeat">
+			<nav class="articles-button-bar articles-button-bar-repeat {if="$myUser==false"}lecture-anonyme{/if}">
 				{function="Plugin::callHook("event_pre_title", array(&$value))"}
 				{if="$value->getFavorite()!=1"}
 					<button class="btn square favs" onclick="addFavorite(this,{$value->getId()});" >★</button>
@@ -88,7 +88,7 @@
 				{/if}
 				<button class="btn red read_button" onclick="readThis(this,{$value->getId()}{$action=='unreadEvents' || $action==''?',true':''});">{function="_t('READ')"}/{function="_t('UNREAD')"}</button>
 			</nav>
-			<div class="clear"></div>	
+			<div class="clear"></div>
 		{/if}
 
 	</article>

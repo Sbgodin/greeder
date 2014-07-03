@@ -5,6 +5,8 @@ CLOSURE ?= closure
 all_css := $(wildcard css/*.css)
 src_css := $(filter-out css/css.min.css css/css.tmp.css, $(all_css))
 
+all: css/css.min.css js/js.min.js
+
 css/css.min.css: $(src_css)
 	@echo "================================"
 	@echo "[CSS] Starting minification"

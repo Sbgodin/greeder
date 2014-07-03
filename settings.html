@@ -4,7 +4,7 @@
 
 <div id="flex">
 	<aside>
-		
+
 		{include="navigation"}
 
 		<div id="breadcrumb" class="fade">
@@ -14,7 +14,6 @@
 			<ul id="menuSettings">
 				<li onclick="toggleBlocks('#manageBloc');"><a href="#manageBloc">{function="_t('FEED_MANAGING')"}</a></li>
 				<li onclick="toggleBlocks('#preferenceBloc');"><a href="#preferenceBloc">{function="_t('PREFERENCES')"} Leed</a></li>
-				<li onclick="toggleBlocks('#greederprefBloc');"><a href="#greederprefBloc">Préférences de Greeder</a></li>
 				<li onclick="toggleBlocks('#importexportBloc');"><a href="#importexportBloc">{function="_t('IMPORT')"} / {function="_t('EXPORT')"}</a></li>
 				<li onclick="toggleBlocks('#bookBloc');"><a href="#bookBloc">{function="_t('BOOKMARKLET')"}</a></li>
 				<li onclick="toggleBlocks('#pluginBloc');"><a href="#pluginBloc">{function="_t('AVAILABLES_PLUGINS')"}</a></li>
@@ -22,7 +21,7 @@
 			</ul>
 			{function="Plugin::callHook("menu_post_folder_menu", array(&$myUser))"}
 	</aside>
-	
+
 	<main>
 		<section class="settingsPage" id="manageBloc">
 			<article>
@@ -75,7 +74,7 @@
 
 			<ul id="loopFoldersSettings" class="clear tableflux">
 				{$feedsForFolder=""}
-				{loop="$folders"}  
+				{loop="$folders"}
 				{$feedsForFolder=$value->getFeeds()}
 				<li>{if="$value->getId()==1"}<a id="defaultFolder"></a>{/if}
 					<article>
@@ -138,7 +137,7 @@
 
 		{if="(isset($myUser)) && ($myUser!=false)"}
 		<section class="settingsPage" id="preferenceBloc">
-			
+
 			<form method="POST" action="action.php?action=updateConfiguration">
 			<article>
 				<h2>{function="_t('PREFERENCES')"} :</h2>
@@ -260,7 +259,7 @@
 		{/if}
 
 		<section class="settingsPage" id="importexportBloc">
-			<article>			
+			<article>
 				<h2>{function="_t('EXPORT_FEED_OPML_FORMAT')"}</h2>
 				<form action="action.php?action=exportFeed" method="POST">
 					<p>{function="_t('OPML_FILE')"} : <button class="red" name="exportButton">{function="_t('EXPORT')"}</button></p>
@@ -288,7 +287,7 @@
 			<article>
 				<h2>{function="_t('PLUGINS')"} :</h2>
 				<p>{function="_t('CAN_DOWNLOAD_PLUGINS')"} : <a href="https://github.com/ldleman/Leed-market/"> Leed Market</a>.</p>
-				
+
 				{if="$myUser!=false"}
 				<ul class="pluginMenu">
 					<li class="selected" onclick="togglePluginMenu(this,'installed');">Plugins installés</li>
@@ -341,8 +340,8 @@
 			</article>
 		</section>
 		{function="Plugin::callHook("setting_post_section", array(&$myUser))"}
-	</main>	
-</div>	
+	</main>
+</div>
 {else}
 	<main id="connect" class="inmain">
 		<h1>{function="_t('YOU_MUST_BE_LOGGED')"}</h1>

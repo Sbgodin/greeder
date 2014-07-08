@@ -561,7 +561,7 @@ function toggleArticleDisplayMode(button, target){
 						content.html(msg);
 						content.show();
 						// Button to pass to title mode
-						button.innerHTML = '|||';
+						button.innerHTML = '-';
 						button.title = _t('EVENT_DISPLAY_CONTENT');
 						articleDetails.last().show();
 					}
@@ -571,7 +571,7 @@ function toggleArticleDisplayMode(button, target){
 		else {
 			content.show();
 			// Button to pass to title mode
-			button.innerHTML = '|||';
+			button.innerHTML = '-';
 			button.title = _t('EVENT_DISPLAY_CONTENT');
 			articleDetails.last().show();
 		}
@@ -582,7 +582,7 @@ function toggleArticleDisplayMode(button, target){
 			// Full content mode and passing to title mode
 			content.hide();
 			// Button to pass to summary mode
-			button.innerHTML = '|&nbsp;&nbsp;';
+			button.innerHTML = '+';
 			button.title = _t('EVENT_DISPLAY_TITLE');
 			if(articleDetails.length > 1) {
                 articleDetails.last().hide();
@@ -607,7 +607,7 @@ function toggleArticleDisplayMode(button, target){
 							summary.html(msg);
 							summary.show();
                             // Button to pass to full content mode
-							button.innerHTML = '||&nbsp;';
+							button.innerHTML = '++';
 							button.title = _t('EVENT_DISPLAY_SUMMARY');
 						}
 					}
@@ -616,7 +616,7 @@ function toggleArticleDisplayMode(button, target){
 			else {
 				summary.show();
                 // Button to pass to full content mode
-				button.innerHTML = '||&nbsp;';
+				button.innerHTML = '++';
 				button.title = _t('EVENT_DISPLAY_SUMMARY');
 			}
 		}

@@ -40,6 +40,8 @@ if($('#backtop').length) {
 	$('#backtop').hide();
 }
 
+var nbUnreadArticles = 0;
+
 $(document).ready(function() {
 	// Back to top button handling
 	toggleBacktop();
@@ -71,6 +73,8 @@ $(document).ready(function() {
 			toggleBlocks(hash);
 		}
 	}
+
+    nbUnreadArticles = parseInt($("#nbUnreadArticles").html());
 });
 
 $(document).scroll(function() {
@@ -329,6 +333,10 @@ function readThis(element, id, from, callback) {
 				if(msg.status == 'noconnect') {
 					alert(msg.texte)
 				} else {
+                    // Update number of unread articles
+                    window.nbUnreadArticles--;
+                    $("#nbUnreadArticles").html(window.nbUnreadArticles);
+
 					switch (activeScreen){
 						case '':
 							// Index page
@@ -378,6 +386,10 @@ function readThis(element, id, from, callback) {
 					if(msg.status == 'noconnect') {
 						alert(msg.texte)
 					} else {
+                        // Update number of unread articles
+                        window.nbUnreadArticles++;
+                        $("#nbUnreadArticles").html(window.nbUnreadArticles);
+
 						parent.removeClass('eventRead');
 						// Count how many articles have been set to unread
 						if ( (activeScreen=='') || (activeScreen=='selectedFolder') ) $(window).data('nblus', $(window).data('nblus') - 1);

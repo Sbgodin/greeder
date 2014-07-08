@@ -26,10 +26,6 @@
 // ==========
 // Parameters
 // ==========
-// Enable / Disable paginations : true = enabled, false = disabled
-var usePagination = false;
-// Fix or not the sidebar : true = fixed, false = not fixed
-var fixSidebar = false;
 // Handle hamburger status
 var hamburger_status = 0;
 
@@ -44,69 +40,13 @@ if($('#backtop').length) {
 	$('#backtop').hide();
 }
 
+var nbUnreadArticles = 0;
+
 $(document).ready(function() {
-	// Handle toggle status for folders
-	toggle_status = $.cookie('greedertoggleFolder');
-	if(typeof(toggle_status) !== 'undefined') {
-		try {
-			toggle_status = JSON.parse(toggle_status);
-
-			for(i in toggle_status) {
-				if(toggle_status[i] == 0 || toggle_status[i] == 1) {
-					var css_status = 'none';
-					if(toggle_status[i] == 1) {
-						$('#folder_'+i+' .FoldFolder').html('▼');
-						css_status = 'block';
-					}
-					$('#folder_'+i+' ul').css('display', css_status);
-				}
-			}
-		}
-		catch(e) {
-			$.cookie('greedertoggleFolder', JSON.stringify(Array()), {
-				expire : -31536000 // expires in one year
-			});
-		}
-	}
-
-	// Handle hamburger status
-	if(typeof($.cookie('greederhamburgerStatus')) !== 'undefined') {
-		hamburger_status = $.cookie('greederhamburgerStatus');
-		if(isNaN(parseInt(hamburger_status))) {
-			hamburger_status = 0;
-			$.cookie('greederhamburgerStatus', 0, {
-				expire : -31536000 // expires in one year
-			});
-		}
-	}
-
-	if(hamburger_status == 1 && window.innerWidth < 850) {
-		$("#feedList").toggle(0);
-	}
-
-	// Pagination enabled
-	if($.cookie('greederprefPagination') == 1) {
-		usePagination = true;
-	}
-	// Fix sidebar
-	if($.cookie('greederprefFixSidebar') == 1) {
-		fixSidebar = true;
-	}
-
-	// Handle pagination
-	if(!usePagination) {
-		$('#pagination').remove();
-	}
-
-	// Handle position fix for sidebar
-	if(fixSidebar) {
-		$('aside#sidebar').addClass('fixed');
-		$('#main').addClass('fixed');
-	}
-
 	// Back to top button handling
 	toggleBacktop();
-	
+	$('#pagination').remove();
+
 	// Initialize ajaxready at first function load
 	if($('#main').length) {
 		$(window).data('ajaxready', true);
@@ -115,7 +55,7 @@ $(document).ready(function() {
 		$(window).data('nblus', 0);
 	}
 
-	if($(window).scrollTop() == 0 && !usePagination)
+	if($(window).scrollTop() == 0)
 		scrollInfini(true);
 
 	// Settings page
@@ -134,35 +74,13 @@ $(document).ready(function() {
 		}
 	}
 
-	if($('#greederprefBloc').length) {
-		$('#greederprefBloc .js-needed').remove();
-
-		// Button to disable pagination
-		$('#greederprefBloc button#paginationButton').removeClass('disabled_button').text('Off').addClass('grey');
-		if(usePagination) {
-			$('#greederprefBloc button#paginationButton').text('On').removeClass('grey').addClass('red');
-		}
-		else {
-			$('#greederprefBloc button#paginationButton').text('Off').removeClass('red').addClass('grey');
-		}
-
-		// Button to fix sidebar
-		$('#greederprefBloc button#fixSidebarButton').removeClass('disabled_button').text('Off').addClass('grey');
-		if(fixSidebar) {
-			$('#greederprefBloc button#fixSidebarButton').text('On').removeClass('grey').addClass('red');
-		}
-		else {
-			$('#greederprefBloc button#fixSidebarButton').text('Off').removeClass('red').addClass('grey');
-		}
-	}
+    nbUnreadArticles = parseInt($("#nbUnreadArticles").html());
 });
 
 $(document).scroll(function() {
 	toggleBacktop(); // Back to top button
 
-	if(!usePagination) {
-		scrollInfini();
-	}
+    scrollInfini();
 });
 
 // ====
@@ -202,49 +120,6 @@ function toggleBacktop() {
 	}
 }
 
-// ===============================================
-// Options : pagination, fixed sidebar
-// ===============================================
-function togglePagination(element) {
-	var state = 1;
-	
-	if($(element).text() == 'On') { // If off, switch it to on
-		state = 0;
-	}
-
-	// Store configuration in a cookie
-	$.cookie('greederprefPagination', state, {
-		expire : 31536000 // expires in one year
-	});
-
-	if(state == 1) {
-		$(element).addClass('red').removeClass('grey').text('On');
-	}
-	else {
-		$(element).addClass('grey').removeClass('red').text('Off');
-	}
-}
-
-function toggleFixSidebar(element) {
-	var state = 1;
-	
-	if($(element).text() == 'On') { // If off, switch it to on
-		state = 0;
-	}
-
-	// Store configuration in a cookie
-	$.cookie('greederprefFixSidebar', state, {
-		expire : 31536000 // expires in one year
-	});
-
-	if(state == 1) {
-		$(element).addClass('red').removeClass('grey').text('On');
-	}
-	else {
-		$(element).addClass('grey').removeClass('red').text('Off');
-	}
-}
-
 // ============
 // Lazy loading
 // ============
@@ -265,10 +140,10 @@ function scrollInfini(no_scroll_test) {
 		{
 			// Set ajaxready to false before request sending
 			$(window).data('ajaxready', false);
-			
+
 			// Display the loader to indicate the loading
 			$('#main #loader').show();
-			
+
 			// Get vars sent as GET
 			var action = getUrlVars()['action'];
 			var folder = getUrlVars()['folder'];
@@ -279,13 +154,13 @@ function scrollInfini(no_scroll_test) {
 			} else {
 				order = ''
 			}
-			
+
 			// Make the ajax request
 			$.ajax({
 				url: './article.php',
 				type: 'post',
 				data: 'scroll='+$(window).data('page')+'&nblus='+$(window).data('nblus')+'&hightlighted=1&action='+action+'&folder='+folder+'&feed='+feed+order,
- 
+
 				success: function(data) {
 					if (data.replace(/^\s+/g,'').replace(/\s+$/g,'') != '')
 					{
@@ -310,7 +185,7 @@ function scrollInfini(no_scroll_test) {
 				}
 			});
 			// When loading is finished, remove the loader
-			$('#main #loader').fadeOut(400);		  
+			$('#main #loader').fadeOut(400);
 		}
 	}
 };
@@ -341,17 +216,6 @@ function toggleFolder(element, folder) {
 
 	feedBloc.slideToggle(200);
 	$(element).html((!open ? '►' : '▼'));
-
-	var folders_status = $.cookie('greedertoggleFolder');
-	if(typeof(folders_status) !== 'undefined')
-		folders_status = JSON.parse(folders_status);
-	else
-		folders_status = new Array();
-	folders_status[folder] = open;
-
-	$.cookie('greedertoggleFolder', JSON.stringify(folders_status), {
-		expire : 31536000 // expires in one year
-	});
 }
 
 // Rename a folder on settings page
@@ -390,9 +254,6 @@ $("#feedList").addClass("js").before('<div id="menu"><img src="./templates/greed
 $("#menu").click(function(){
 	$("#feedList").slideToggle(200);
 	hamburger_status = 1 - hamburger_status;
-	$.cookie('greederhamburgerStatus', window.hamburger_status, {
-		expire : 31536000 // expires in one year
-	});
 });
 
 $(window).resize(function() {
@@ -472,7 +333,11 @@ function readThis(element, id, from, callback) {
 				if(msg.status == 'noconnect') {
 					alert(msg.texte)
 				} else {
-					switch (activeScreen){ 
+                    // Update number of unread articles
+                    window.nbUnreadArticles--;
+                    $("#nbUnreadArticles").html(window.nbUnreadArticles);
+
+					switch (activeScreen){
 						case '':
 							// Index page
 							parent.addClass('eventRead');
@@ -484,7 +349,7 @@ function readThis(element, id, from, callback) {
 								if($('article section:last').attr('style') == 'display: none;') {
 									$(window).scrollTop($(document).height());
 								}
-							}); 
+							});
 							// We count how many articles have been read to substract them to the infinite scroll query
 							$(window).data('nblus', $(window).data('nblus')+1);
 							// Diminish the number of article on top of the page
@@ -521,6 +386,10 @@ function readThis(element, id, from, callback) {
 					if(msg.status == 'noconnect') {
 						alert(msg.texte)
 					} else {
+                        // Update number of unread articles
+                        window.nbUnreadArticles++;
+                        $("#nbUnreadArticles").html(window.nbUnreadArticles);
+
 						parent.removeClass('eventRead');
 						// Count how many articles have been set to unread
 						if ( (activeScreen=='') || (activeScreen=='selectedFolder') ) $(window).data('nblus', $(window).data('nblus') - 1);
@@ -588,7 +457,7 @@ function toggleArticleDisplayMode(button, target){
                 articleDetails.last().hide();
 			}
 
-		} 
+		}
 		else {
 			// Title mode and passing to summary mode
 			action = 'summary';
@@ -689,11 +558,6 @@ function synchronize(code, callback) {
 // =======================
 // Settings page functions
 // =======================
-function toggleArticleView(){
-	var element = $("input[name=articleView]");
-	element.prop("disabled",!element.prop("disabled"));
-}
-
 function toggleBlocks(target) {
 	if($(target).length) {
 		$('main section').hide();

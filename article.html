@@ -65,17 +65,15 @@
 		{/if}
 
 		<!-- Display more/less -->
-        <p>
 			{if="$articleDisplayMode=='title'"}
-				<a id="btnDisplayMode_{$value->getId()}" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_TITLE')"}">|&nbsp;&nbsp;</a>
+				<a class="btnDisplayMode" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_TITLE')"}">+&nbsp;&nbsp;</a>
 			{/if}
 			{if="$articleDisplayMode=='summary'"}
-				<a id="btnDisplayMode_{$value->getId()}" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_SUMMARY')"}">||&nbsp;</a>
+				<a class="btnDisplayMode" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_SUMMARY')"}">++&nbsp;</a>
 			{/if}
 			{if="$articleDisplayMode=='content'"}
-				<a id="btnDisplayMode_{$value->getId()}" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_CONTENT')"}">|||</a>
+				<a class="btnDisplayMode" onclick="toggleArticleDisplayMode(this,{$value->getId()})" title="{function="_t('EVENT_DISPLAY_CONTENT')"}">-</a>
 			{/if}
-        </p>
 
 		<!-- Complete view : repeat buttons -->
 		{if="$articleDisplayMode=='content'"}

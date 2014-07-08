@@ -128,7 +128,8 @@
 	/*Repeat this !*/
 		a.FoldFolder,
 		aside li a.fade,
-		#menuSettings li {
+		#menuSettings li,
+		a.btnDisplayMode {
 			cursor:pointer;
 		}
 		aside ul a,
@@ -470,7 +471,6 @@
 			display: none;
 		}
 	/*Navbar Articles*/
-
 		.favs {
 			font-size:1.5em;
 			color:#FFF;
@@ -484,6 +484,16 @@
 		}
 		.favorised .star {
 			color:#FFD200;
+		}
+	/*Display Mode Buttons*/
+		a.btnDisplayMode {
+			display: block;
+			text-align: center;
+			padding: .5rem;
+			background-color: #E5E5E5;
+			color: #fff;
+			font-weight:bolder;
+			text-shadow: 0 1px 1px #6A6A6A;
 		}
 	/*Footer*/
 		footer {

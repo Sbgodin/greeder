@@ -472,10 +472,9 @@
 		}
 	/*Navbar Articles*/
 		.favs {
-			font-size:1.5em;
 			color:#FFF;
 			background:#6A6A6A;
-			font-size: 2rem;
+			font-size:2rem;
 		}
 		.favorised .favs,
 		.yellow {
@@ -491,9 +490,12 @@
 			text-align: center;
 			padding: .5rem;
 			background-color: #E5E5E5;
-			color: #fff;
+			color: #6A6A6A;
 			font-weight:bolder;
-			text-shadow: 0 1px 1px #6A6A6A;
+			text-shadow: 0 1px 0px #FFF;
+			font-size:3rem;
+			line-height:30px;
+			height: 40px;
 		}
 	/*Footer*/
 		footer {

@@ -489,6 +489,8 @@
 			padding: .5rem;
 			background-color: #E5E5E5;
 			color: #fff;
+			font-weight:bolder;
+			text-shadow: 0 1px 1px #6A6A6A;
 		}
 	/*Footer*/
 		footer {

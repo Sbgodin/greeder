@@ -21,7 +21,7 @@
 
 // Note on minification :
 // ======================
-// When you edit this file, you must run the pre-commit hook in .hook dir to regenerate a minified version of the script.
+// When you edit this file, you must "make" on greeder folder to launch the minification
 
 // ==========
 // Parameters

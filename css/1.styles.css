@@ -286,24 +286,29 @@
 		aside ul {
 			list-style:none;
 		}
-		#feedList > li:hover {
-			border-radius:2px;
+		.folder {
+			border-radius: 2px;
+			overflow: hidden;
+			margin: .5rem 0;
+		}
+		.folder:hover,
+		.folder.isOpen {
 			background-color:#6A6A6A;
 		}
-		#feedList > li:hover > a {
+		#feedList > li:hover > a,
+		.folder.isOpen > a,
+		.folder.isOpen > a.FoldFolder {
 			color:#FFF;
 		}
-		#feedList ul {
+		.folder ul {
 			padding:5px;
-			border-radius: 2px;
 			background-color:#CDCDCD;
-            display: none;
+		        display: none;
 		}
 		ul .fade {
 			float:right;
-
 		}
-		#feedList  > li > .fade {
+		#feedList > li > .fade {
 			padding: 3px 3px 0 0;
 		}
 		a.FoldFolder {

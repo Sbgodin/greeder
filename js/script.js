@@ -216,6 +216,10 @@ function toggleFolder(element, folder) {
 
 	feedBloc.slideToggle(200);
 	$(element).html((!open ? '►' : '▼'));
+	if (open == true)
+		$(element).parent().addClass("isOpen");
+	else
+		$(element).parent().removeClass("isOpen");
 }
 
 // Rename a folder on settings page

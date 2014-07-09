@@ -411,80 +411,97 @@ function toggleArticleDisplayMode(button, target){
     var summary = $('.summary', $('#'+target).parent());
     var content = $('.content', $('#'+target).parent());
     var articleDetails = $('.articleDetails', $('#'+target).parent());
-	if(summary.length > 0 && summary.attr('style') != 'display: none;') {
+	if(summary.length > 0 && summary.attr('style') != 'display: none;')
+	{
 		// Summary mode and passing to full content mode
 		action = 'content';
-		summary.hide();
+		/*summary.hide();*/
 		// Loading the full content of the article
-		if ($.trim(content.text()).length == 0) {
+		if ($.trim(content.text()).length == 0)
+		{
 			$.ajax({
 				url: "./action.php?action=articleDisplayMode&articleDisplayMode="+action+'&event_id='+target,
 				success:function(msg){
-					if(msg.status == 'noconnect') {
+					if(msg.status == 'noconnect')
+					{
 						alert(msg.texte);
 					}
-					else {
-						if(console && console.log && msg != "") {
-                            console.log(msg);
-                        }
+					else
+					{
+						if(console && console.log && msg != "")
+						{
+			                            console.log(msg);
+			                        }
+						summary.hide(); //it creates a little visual glitch when et disappears.
 						content.html(msg);
-						content.show();
+						content.show(200);
 						// Button to pass to title mode
 						button.innerHTML = '-';
 						button.title = _t('EVENT_DISPLAY_CONTENT');
-						articleDetails.last().show();
+						articleDetails.last().show(200);
 					}
 				}
 			});
 		}
-		else {
-			content.show();
+		else
+		{
+			summary.hide();
+			content.show(200);
 			// Button to pass to title mode
 			button.innerHTML = '-';
 			button.title = _t('EVENT_DISPLAY_CONTENT');
-			articleDetails.last().show();
+			articleDetails.last().show(200);
 		}
 
 	}
-	else {
-		if(content.length > 0 && content.attr('style') != 'display: none;') {
+	else
+	{
+		if(content.length > 0 && content.attr('style') != 'display: none;')
+		{
 			// Full content mode and passing to title mode
-			content.hide();
+			content.hide(200);
 			// Button to pass to summary mode
 			button.innerHTML = '+';
 			button.title = _t('EVENT_DISPLAY_TITLE');
-			if(articleDetails.length > 1) {
-                articleDetails.last().hide();
+			if(articleDetails.length > 1)
+			{
+		                articleDetails.last().hide(200);
 			}
 
 		}
-		else {
+		else
+		{
 			// Title mode and passing to summary mode
 			action = 'summary';
-            // Loading the summary (description)
-			if ($.trim(summary.text()).length==0) {
+			// Loading the summary (description)
+			if ($.trim(summary.text()).length==0)
+			{
 				$.ajax({
 					url: "./action.php?action=articleDisplayMode&articleDisplayMode="+action+'&event_id='+target,
 					success:function(msg){
-						if(msg.status == 'noconnect') {
+						if(msg.status == 'noconnect')
+						{
 							alert(msg.texte);
 						}
-						else {
-							if( console && console.log && msg!="" ) {
-                                console.log(msg);
-                            }
-							summary.html(msg);
-							summary.show();
-                            // Button to pass to full content mode
+						else
+						{
+							if( console && console.log && msg!="" )
+							{
+				                                console.log(msg);
+							}
+	    						summary.html(msg);
+							summary.show(200);
+							// Button to pass to full content mode
 							button.innerHTML = '++';
 							button.title = _t('EVENT_DISPLAY_SUMMARY');
 						}
 					}
 				});
 			}
-			else {
-				summary.show();
-                // Button to pass to full content mode
+			else
+			{
+				summary.show(200);
+		                // Button to pass to full content mode
 				button.innerHTML = '++';
 				button.title = _t('EVENT_DISPLAY_SUMMARY');
 			}

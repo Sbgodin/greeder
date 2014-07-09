@@ -438,11 +438,11 @@ function toggleArticleDisplayMode(button, target){
 			                        }
 						summary.hide(); //it creates a little visual glitch when et disappears.
 						content.html(msg);
-						content.show(200);
+						content.slideToggle(200);
 						// Button to pass to title mode
 						button.innerHTML = '-';
 						button.title = _t('EVENT_DISPLAY_CONTENT');
-						articleDetails.last().show(200);
+						articleDetails.last().show(200); //we have to adapt this line to greeder
 					}
 				}
 			});
@@ -450,11 +450,11 @@ function toggleArticleDisplayMode(button, target){
 		else
 		{
 			summary.hide();
-			content.show(200);
+			content.slideToggle(200);
 			// Button to pass to title mode
 			button.innerHTML = '-';
 			button.title = _t('EVENT_DISPLAY_CONTENT');
-			articleDetails.last().show(200);
+			articleDetails.last().slideToggle(200);
 		}
 
 	}
@@ -463,7 +463,7 @@ function toggleArticleDisplayMode(button, target){
 		if(content.length > 0 && content.attr('style') != 'display: none;')
 		{
 			// Full content mode and passing to title mode
-			content.hide(200);
+			content.slideToggle(200);
 			// Button to pass to summary mode
 			button.innerHTML = '+';
 			button.title = _t('EVENT_DISPLAY_TITLE');
@@ -494,7 +494,7 @@ function toggleArticleDisplayMode(button, target){
 				                                console.log(msg);
 							}
 	    						summary.html(msg);
-							summary.show(200);
+							summary.slideToggle(200);
 							// Button to pass to full content mode
 							button.innerHTML = '++';
 							button.title = _t('EVENT_DISPLAY_SUMMARY');
@@ -504,7 +504,7 @@ function toggleArticleDisplayMode(button, target){
 			}
 			else
 			{
-				summary.show(200);
+				summary.slideToggle(200);
 		                // Button to pass to full content mode
 				button.innerHTML = '++';
 				button.title = _t('EVENT_DISPLAY_SUMMARY');

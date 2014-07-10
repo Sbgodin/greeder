@@ -182,15 +182,8 @@
 		border: 0;
 		white-space: normal;
 	}
-	button,
-	input,
-	select {
+	button {
 		border-radius: 2px;
-	}
-	input{
-		margin: 0px 2px;
-		padding: 2px 5px;
-		border: 1px solid rgb(220, 220, 220);
 	}
 	textarea {
 		overflow: auto;

@@ -286,39 +286,35 @@
 		<section class="settingsPage" id="pluginBloc"> <!--traduction-->
 			<article>
 				<h2>{function="_t('PLUGINS')"} :</h2>
-				<p>{function="_t('CAN_DOWNLOAD_PLUGINS')"} : <a href="https://github.com/ldleman/Leed-market/"> Leed Market</a>.</p>
-
+				<p>{function="_t('CAN_DOWNLOAD_PLUGINS')"} : <a href="https://github.com/tmos/greeder-plugins">Greeder Market</a>.</p>
 				{if="$myUser!=false"}
-				<div class="installedZone">
 					<h3>{function="_t('AVAILABLE_PLUGIN_LIST')"} :</h3>
-					<ul class="pluginList">
 					{if="count($plugins)==0"}
-					{function="_t('NO_INSTALLED_PLUGINS')"}
-
+						{function="_t('NO_INSTALLED_PLUGINS')"}
+					</article>
 					{else}
-					{loop="$plugins"}
-					<li>
-						<ul>
-							<li><h4>{function="_t('NAME')"}: </h4>{$value->getName()}</li>
-							{$authors=$value->getAuthor()}
-							{$addresses=$value->getAddress()}
-							{if="is_array($authors)"}
-								{loop="authors"}
-									{$address=$addresses[$key2]}
-									<li><h4>{function="_t('AUTHOR')"}: </h4>{if="$address"}<a href="{if="strpos($address, '@')"}mailto:{/if}{$address}">{/if}{$value}{if="$address"}</a>{/if}</li>
-								{/loop}
-							{/if}
-							<li><h4>{function="_t('LICENCE')"}: </h4>{$value->getLicence()}</li>
-							<li><h4>{function="_t('VERSION')"}: </h4><code>{$value->getVersion()}</code></li>
-							<li><h4>{function="_t('SITE')"}: </h4><a href="{$value->getLink()}">{$value->getLink()}</a></li>
-							<li>{$value->getDescription()}</li>
-							<li><a href="action.php?action=changePluginState&plugin={$value->getUid()}&state={$value->getState()}" class="button">{$value->getState()=="0"?_t('ENABLE'):_t('DISABLE')}</a></li>
-						</ul>
-					</li>
-					{/loop}
+					</article>
+						{loop="$plugins"}
+						<article>
+							<ul>
+								<li><b>{function="_t('NAME')"} : </b>{$value->getName()}</li>
+								{$authors=$value->getAuthor()}
+								{$addresses=$value->getAddress()}
+								{if="is_array($authors)"}
+									{loop="authors"}
+										{$address=$addresses[$key2]}
+										<li><b>{function="_t('AUTHOR')"} : </b>{if="$address"}<a href="{if="strpos($address, '@')"}mailto:{/if}{$address}">{/if}{$value}{if="$address"}</a>{/if}</li>
+									{/loop}
+								{/if}
+								<li><b>{function="_t('LICENCE')"} : </b>{$value->getLicence()}</li>
+								<li><b>{function="_t('VERSION')"} : </b><code>{$value->getVersion()}</code></li>
+								<li><b>{function="_t('SITE')"} : </b><a href="{$value->getLink()}">{$value->getLink()}</a></li>
+								<li>{$value->getDescription()}</li>
+								<li><a href="action.php?action=changePluginState&plugin={$value->getUid()}&state={$value->getState()}" class="btn red">{$value->getState()=="0"?_t('ENABLE'):_t('DISABLE')}</a></li>
+							</ul>
+						</article>
+						{/loop}
 					{/if}
-					</ul>
-				</div>
 				{else}
 					<p>{function="_t('YOU_MUST_BE_CONNECTED_PLUGIN')"}</p>
 				{/if}
